@@ -83,7 +83,8 @@ copy .env.example .env
 # 3. Check Bedrock access
 python -m scripts.check_bedrock
 
-# 4. Download the data (64 public files)
+# 4. Add the one file that can't be downloaded (see the note below), then get the rest
+#    data/local/google_maps_screenshot.png
 python -m scripts.download_data
 
 # 5. Build the knowledge base
@@ -92,6 +93,8 @@ python -m scripts.ingest_kb
 # 6. Run the API and the web page
 uvicorn app.app:app --reload          # open http://127.0.0.1:8000
 ```
+
+**The Google Maps screenshot.** One `not_a_plan` test page (`test_nap_03`) is a screenshot of Google Maps, with the map, the search bar and the zoom buttons visible. It isn't in the repository, because Google's terms don't allow redistributing it. Take a screenshot of any area in Google Maps, satellite or map view, and save it as **`data/local/google_maps_screenshot.png`** before running `download_data`. The other 63 files are downloaded from Wikimedia Commons.
 
 The `.env` used for the evaluation:
 
@@ -136,6 +139,7 @@ python -m scripts.eval.report
 | `ModelErrorException … invalid sequence as part of ToolUse` | Nova occasionally produces a broken tool call. The pipeline retries and then falls back to plain JSON. If a page still fails, run it again |
 | `ThrottlingException`, or HTTP 503 from `/classify` | The Bedrock quota was reached. Wait for the `Retry-After` time, or lower `PAGE_WORKERS` |
 | HTTP 503 "Knowledge base index not built" / `/health` shows `index_loaded: false` | Run `python -m scripts.ingest_kb` |
+| `download_data` shows `[FAIL] … test_nap_03 … FileNotFoundError` | The Google Maps screenshot is missing. Save one as `data/local/google_maps_screenshot.png` and run `download_data` again; files that are already there are skipped |
 | Titan fails in your region | Set `EMBED_REGION` to a region that offers Titan Text Embeddings V2. `check_bedrock` suggests one |
 | HTTP 413 / 415 / 422 | 413: the file is larger than 20 MB. 415: it isn't a PDF, PNG or JPEG. 422: it's empty, corrupt, password-protected, or longer than 20 pages |
 | A page takes ~20 s | Expected: each page makes two model calls, one after the other. Pages of one PDF run 3 at a time (`PAGE_WORKERS`) |
