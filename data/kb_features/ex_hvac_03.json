@@ -1,0 +1,27 @@
+{
+  "has_title_block": true,
+  "title_block_text": "U.S. COAST GUARD CIVIL ENGINEERING UNIT NEW YORK, N.Y. HVAC - FLOOR PLAN AND NOTES",
+  "sheet_title": "HVAC - FLOOR PLAN AND NOTES",
+  "sheet_number": "M-1",
+  "scale": "1/4\" = 1'-0\"",
+  "legend_items": [],
+  "detected_symbols": [
+    "duct runs",
+    "air handling units",
+    "diffusers",
+    "return air grilles",
+    "supply air grilles",
+    "exhaust fans",
+    "fans",
+    "pumps",
+    "valves",
+    "piping",
+    "equipment",
+    "notes",
+    "dimensions",
+    "scale",
+    "title block"
+  ],
+  "description": "This is a floor plan for an HVAC system, showing duct runs, air handling units, diffusers, return air grilles, supply air grilles, exhaust fans, fans, pumps, valves, piping, equipment, notes, dimensions, scale, title block, and sheet number.",
+  "preliminary_label": "hvac_mechanical"
+}

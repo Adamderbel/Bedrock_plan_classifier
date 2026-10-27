@@ -1,0 +1,42 @@
+{
+  "has_title_block": true,
+  "title_block_text": "AS BUILT NOV 1978, CG 03-7033 REVISED A/C DUCT WORK TO SUIT REARRANGEMENT OF ELECTRONIC EQUIPMENT REVISED DUCT WORK & TOTAL SHEET NUMBER REV. DATE APPR. DESCRIPTION BY DESIGNED: M. SILECCHI A DRAWN: MURAWSKI TRACED: MURAWSKI CHECKED: MOORE 19 APPROVED: GOVERNORS ISLAND U.S. COAST GUARD 3RD DISTRICT GOV'S. ISL'D. N.Y. CIVIL ENGINEERING RELOCATION OF COMM. CENTER -BLDG.# 125 SUPPORT CENTER NEW YORK DP-03-438 SN- JOHN C. MORRIS ASSOCIATES CONSULTING ENGINEERS 196 BROAD STREET RED BANK N. J. John Mani PE. REG.* 32788 CHIEF, OPERATIONS DIVISION DATE 30 Aad71 DRAWING NUMBER 03-5598 SCALE: AS NOTED SHEET 10 OF 20",
+  "sheet_title": "PART FIRST FLOOR PLAN",
+  "sheet_number": "03-5598",
+  "scale": "AS NOTED",
+  "legend_items": [
+    "AS BUILT NOV 1978, CG 03-7033",
+    "REVISED A/C DUCT WORK TO SUIT REARRANGEMENT OF ELECTRONIC EQUIPMENT",
+    "REVISED DUCT WORK & TOTAL SHEET NUMBER",
+    "DESIGNED: M. SILECCHI A",
+    "DRAWN: MURAWSKI",
+    "TRACED: MURAWSKI",
+    "CHECKED: MOORE 19",
+    "APPROVED: GOVERNORS ISLAND",
+    "U.S. COAST GUARD 3RD DISTRICT GOV'S. ISL'D. N.Y.",
+    "CIVIL ENGINEERING",
+    "RELOCATION OF COMM. CENTER -BLDG.# 125 SUPPORT CENTER NEW YORK",
+    "SN-",
+    "JOHN C. MORRIS ASSOCIATES CONSULTING ENGINEERS 196 BROAD STREET RED BANK N. J.",
+    "John Mani PE. REG.* 32788 CHIEF, OPERATIONS DIVISION DATE 30 Aad71 DRAWING NUMBER 03-5598 SCALE: AS NOTED SHEET 10 OF 20"
+  ],
+  "detected_symbols": [
+    "Ductwork",
+    "Air handling units",
+    "Mechanical components",
+    "Walls",
+    "Doors",
+    "Windows",
+    "Electrical outlets",
+    "Light fixtures",
+    "Plumbing fixtures",
+    "Fire safety equipment",
+    "Security systems",
+    "Communication systems",
+    "HVAC systems",
+    "Structural elements",
+    "Furniture and fixtures"
+  ],
+  "description": "This is a detailed floor plan of the first floor of a building, focusing on HVAC systems. It includes ductwork, air handling units, and other mechanical components. The plan is part of a larger set of drawings for the building.",
+  "preliminary_label": "hvac_mechanical"
+}

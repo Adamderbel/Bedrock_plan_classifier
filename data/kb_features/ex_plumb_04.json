@@ -1,0 +1,17 @@
+{
+  "has_title_block": true,
+  "title_block_text": "U.S. COAST GUARD 107 GOVERNORS ISLAND, NEW YORK CIVIL ENGINEERING UNIT NEW YORK BLDG. 114 - APARTMENT RENOVATION SUPPORT CENTER NEW YORK GOVERNORS ISLAND NEW YORK F. FAMULARO PLUMBING RISIER DIAGRAMS & DETAILS APPROVED: DATE 7/12/93 TECHNICAL DIRECTOR COMMANDING OFFICER DRAWING NUMBER PSN-5167 NY-0447 P-3 BARANSON ASSOCIATES, INC. 45 N. BROAD ST. RIDGEWOOD, NJ 450 (201) 652-0780 SCALE: AS SHOWN SHEET 11 OF 21",
+  "sheet_title": "PLUMBING RISER DIAGRAMS & DETAILS",
+  "sheet_number": "P-3",
+  "scale": "AS SHOWN",
+  "legend_items": [],
+  "detected_symbols": [
+    "sanitary riser",
+    "cold water riser",
+    "hot water riser",
+    "fixture connection schedule",
+    "water service sediment filter"
+  ],
+  "description": "The page contains multiple diagrams related to plumbing systems, including sanitary, cold water, and hot water risers, a fixture connection schedule, and a water service sediment filter. The diagrams are not to scale.",
+  "preliminary_label": "plumbing"
+}

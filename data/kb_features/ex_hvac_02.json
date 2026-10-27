@@ -1,0 +1,40 @@
+{
+  "has_title_block": true,
+  "title_block_text": "U.S. COAST GUARD SUPPORT CENTER NEW YORK, N.Y. CIVIL ENGINEERING DIVISION INSULATION OF THE HVAC DUCTS USCG SUPPORT CENTER NEW YORK GOVERNORS ISLAND NEW YORK BUILDING 134 MECHANICAL 1st FLOOR PLAN DRAWING NUMBER NY-0471 SCALE: AS SHOWN SHEET 2 OF 3",
+  "sheet_title": "1st FLOOR PLAN",
+  "sheet_number": "M-1",
+  "scale": "1/4\" = 1'-0\"",
+  "legend_items": [
+    "UNINSULATED DUCT, DUCT SIZE INCHES. 1ST FIGURE IS SIDE SHOWN",
+    "DUCT, WITH NEW INSULATION",
+    "AIR FLOW DIRECTION ARROW",
+    "6'-4\" CEILING REGISTER",
+    "6'-0\" CEILING DIFFUSER",
+    "DUCT WITH VOLUME DAMPER",
+    "FIRE DAMPER & ACCESS DOOR",
+    "FLEXIBLE CONNECTOR",
+    "12'-4\" TRANSFER GRILLE",
+    "AUTOMATIC DAMPER",
+    "COMPRESSOR/CONDENSER",
+    "AIR HANDLER",
+    "HW HEATER SUPPLY & RETURN",
+    "THERMOSTAT",
+    "PIPING"
+  ],
+  "detected_symbols": [
+    "duct runs",
+    "air handlers",
+    "ceiling registers",
+    "ceiling diffusers",
+    "fire dampers",
+    "flexible connectors",
+    "transfer grilles",
+    "automatic dampers",
+    "compressors/condensers",
+    "hot water heater supply & return",
+    "thermostats",
+    "baseboard radiation"
+  ],
+  "description": "This is a mechanical plan showing the air handling equipment and ductwork for the first floor of Building 134 at the USCG Support Center in New York. It includes details of duct runs, air handlers, registers, diffusers, dampers, and other HVAC components.",
+  "preliminary_label": "hvac_mechanical"
+}

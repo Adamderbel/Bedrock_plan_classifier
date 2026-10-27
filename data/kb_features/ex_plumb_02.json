@@ -1,0 +1,16 @@
+{
+  "has_title_block": true,
+  "title_block_text": "U.S. COAST GUARD 3RD. DISTRICT GOVERNORS ISL. N.Y. CIVIL ENGINEERING ALTERATIONS & ADDITIONS: BLDG. 606 LAUNDRY / LOCKER / ELECTRICAL DISTRIBUTION GOVERNORS ISLAND, NEW ORK PLUMBING PLAN AND DETAILS",
+  "sheet_title": "PLUMBING PLAN",
+  "sheet_number": "03-6226",
+  "scale": "NOT TO SCALE",
+  "legend_items": [],
+  "detected_symbols": [
+    "sanitary riser",
+    "domestic water heating system",
+    "laundry locker",
+    "electrical distribution"
+  ],
+  "description": "The drawing shows a plumbing plan for a building on Governors Island, New York, including a sanitary riser diagram, a domestic water heating system schematic, and details for a laundry locker and electrical distribution. The scale is not specified.",
+  "preliminary_label": "plumbing"
+}

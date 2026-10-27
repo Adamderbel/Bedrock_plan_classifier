@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PlanSense</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div>
+      <h1>PlanSense</h1>
+      <p class="sub">Construction drawing classifier — one result per page</p>
+    </div>
+    <div id="status" class="status">Connecting…</div>
+  </header>
+
+  <main>
+    <section class="panel">
+      <form id="form">
+        <label id="drop" class="drop" for="file">
+          <input id="file" type="file" accept=".pdf,.png,.jpg,.jpeg,application/pdf,image/png,image/jpeg" hidden>
+          <img id="preview" class="preview" alt="" hidden>
+          <span id="dropText"><strong>Drop a PDF, PNG or JPEG</strong> or click to choose</span>
+          <span id="fileName" class="file-name"></span>
+        </label>
+
+        <div class="options">
+          <button id="submit" type="submit" disabled>Classify</button>
+        </div>
+      </form>
+
+      <div id="progress" class="progress" hidden>
+        <div class="spinner"></div>
+        <span id="progressText">Classifying…</span>
+      </div>
+      <div id="error" class="error" role="alert" hidden></div>
+    </section>
+
+    <section id="summary" class="summary" hidden></section>
+    <section id="results" class="results"></section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

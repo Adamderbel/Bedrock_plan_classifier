@@ -1,0 +1,18 @@
+{
+  "has_title_block": true,
+  "title_block_text": "REV. DATE APR. DESCRIPTION BY DESIGNED: U.S. COAST GUARD 3RD DIST. GOV. ISLAND, N.Y. DRAWN: M. GLICK TRACED: CIVIL ENGINEERING CHECKED: D. Champa REVIEWED BY: A. Jannil PE. CH. STRUCT. SECT. REVIEWED BY: D. Champa CH. TECH ASST. REVIEWED BY: K.C. STRUCT. SECT. C.D.R. USCG CH. OF BRANCH CAPT. USCG CHIEF OF DIVISION DRAWING NUMBER PSN-38225 03-5942 SCALE: AS SHOWN SHEET 2 of 9 DATE 8/21/77",
+  "sheet_title": "2nd FLOOR PLAN",
+  "sheet_number": "03-5942",
+  "scale": "AS SHOWN",
+  "legend_items": [],
+  "detected_symbols": [
+    "offices",
+    "library",
+    "stairs",
+    "exits",
+    "ceiling repairs",
+    "gypsum board work"
+  ],
+  "description": "The drawing shows the second floor plan of a building, including offices, a library, stairs, exits, and areas requiring ceiling repairs and gypsum board work. The plan is part of alterations to Building 104 at the Coast Guard Support Center on Governors Island, New York.",
+  "preliminary_label": "architectural"
+}

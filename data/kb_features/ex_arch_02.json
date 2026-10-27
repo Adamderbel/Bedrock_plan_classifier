@@ -1,0 +1,18 @@
+{
+  "has_title_block": true,
+  "title_block_text": "U.S. COAST GUARD SMD-NY BLDG. 107, GOVERNORS ISLAND, NEW YORK BLDG. 125 - INTERIOR RENOVATION - (Ai) PARTIAL FIRST FLOOR SUPPORT CENTER NEW YORK GOVERNORS ISLAND NY ARCHITECTURAL FIRST FLOOR PLAN PSN 43-8371 NE-0169 SCALE AS NOTED SHEET 2 OF 18",
+  "sheet_title": "FIRST FLOOR PLAN",
+  "sheet_number": "A-9",
+  "scale": "1/8\" = 1'-0\"",
+  "legend_items": [],
+  "detected_symbols": [
+    "doors",
+    "windows",
+    "stairs",
+    "furniture",
+    "electrical outlets",
+    "telephone panels"
+  ],
+  "description": "This is a floor plan of the first floor of a building, showing the layout of rooms, doors, windows, stairs, and electrical outlets. It includes details of the interior renovation of the Support Center in New York.",
+  "preliminary_label": "architectural"
+}

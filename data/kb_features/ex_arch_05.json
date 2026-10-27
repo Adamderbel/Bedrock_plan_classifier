@@ -1,0 +1,19 @@
+{
+  "has_title_block": true,
+  "title_block_text": "U.S. COAST GUARD 3RD DISTRICT, GOVERNORS ISL. N.Y. CIVIL ENGINEERING BLDG 202 KITCHEN REHAB. COAST GUARD SUPPORT CENTER N.Y. GOVERNORS ISLAND ARCHITECTURAL NEW YORK SECOND FLOOR PLAN",
+  "sheet_title": "ARCHITECTURAL SECOND FLOOR PLAN",
+  "sheet_number": "03-6388",
+  "scale": "1/4\"=1'-0\"",
+  "legend_items": [],
+  "detected_symbols": [
+    "doors",
+    "windows",
+    "stairs",
+    "furniture",
+    "fixtures",
+    "dimensions",
+    "notes"
+  ],
+  "description": "This is an architectural plan of the second floor of a building, showing the layout of rooms, doors, windows, stairs, and fixtures. The plan includes dimensions and notes for construction.",
+  "preliminary_label": "architectural"
+}

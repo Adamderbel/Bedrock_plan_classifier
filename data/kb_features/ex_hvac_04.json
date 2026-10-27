@@ -1,0 +1,27 @@
+{
+  "has_title_block": true,
+  "title_block_text": "RECORD DRWGS 10/82 DTCG-26-81C-00171 REV. DATE APPR. DESCRIPTION BY DESIGNED: AL U.S. COAST GUARD 3RD DISTRICT GOVERNORS ISLAND, N.Y. DRAWN: LN CIVIL ENGINEERING ATLANTIC AREA OPERATIONS COMPUTER CENTER SUPPORT CENTER NEW YORK-BUILDING 110 GOVERNORS ISLAND NEW YORK MECHANICAL HVAC FLOOR PLANS APPROVED: DATE CHIEF OF BRANCH CAPT USCG CHIEF OF DIVISION DRAWING NUMBER 1/29/81 MEYERS & LOCKER CONSULTING ENGINEERS 226 WEST 34TH STREET NEW YORK, N.Y. 10001, 212-736-4499 03-6051 KATZ WAJSMAN WEBER ARCHITECTS 60 EAST 42ND STREET NEW YORK, N.Y. 10165, 212-661-4760 SCALE: AS SHOWN SHEET 4 OF 14",
+  "sheet_title": "MECHANICAL HVAC FLOOR PLANS",
+  "sheet_number": "03-6051",
+  "scale": "AS SHOWN",
+  "legend_items": [],
+  "detected_symbols": [
+    "duct runs",
+    "equipment locations",
+    "valves",
+    "pumps",
+    "fans",
+    "air handlers",
+    "chillers",
+    "heat exchangers",
+    "piping",
+    "instrumentation",
+    "controls",
+    "electrical components",
+    "lighting fixtures",
+    "outlets",
+    "switches"
+  ],
+  "description": "This is a mechanical HVAC floor plan for the U.S. Coast Guard 3rd District Governors Island, New York. It includes duct runs, equipment locations, valves, pumps, fans, air handlers, chillers, heat exchangers, piping, instrumentation, controls, electrical components, lighting fixtures, outlets, and switches.",
+  "preliminary_label": "hvac_mechanical"
+}

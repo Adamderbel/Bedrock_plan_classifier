@@ -1,0 +1,25 @@
+{
+  "has_title_block": true,
+  "title_block_text": "WET PIPE ALARM CHECK VALVE DETAIL NO SCALE N N 4' 1/4",
+  "sheet_title": "AUTOMATIC SPRINKLER SYSTEM 1ST FLOOR",
+  "sheet_number": "03-6185",
+  "scale": "1",
+  "legend_items": [
+    "SPRINKLER PIPING",
+    "SPRINKLER HEADS",
+    "VALVE",
+    "TANK",
+    "PUMP",
+    "CHECK VALVE",
+    "DRAIN",
+    "ALARM CHECK VALVE",
+    "MAIN VALVE",
+    "WATER PRESSURE GAUGE",
+    "WATER ORGAN VALVE",
+    "PLUMBING FIXTURES",
+    "CIVIL ENGINEERING DETAILS"
+  ],
+  "detected_symbols": [],
+  "description": "This is a detailed plan of the automatic sprinkler system for the 1st floor of Building 877. It includes sprinkler piping, heads, valves, tanks, pumps, check valves, drains, alarm check valves, main valves, water pressure gauges, water organ valves, plumbing fixtures, and civil engineering details.",
+  "preliminary_label": "fire_safety"
+}

@@ -1,0 +1,23 @@
+{
+  "has_title_block": true,
+  "title_block_text": "U.S. COAST GUARD 3rd DISTRICT GOVERNORS ISLAND, N.Y. U.S. CIVIL ENGINEERING CENTER OPERATIONS & SHOPS BUILDING GOVERNORS ISLAND NEW YORK, N.Y. 10004 ARCH FIRST FLOOR PLAN No. 134",
+  "sheet_title": "ARCH FIRST FLOOR PLAN",
+  "sheet_number": "S-A-2",
+  "scale": "1/4\"=1'-0\"",
+  "legend_items": [
+    "Walls",
+    "Doors",
+    "Windows",
+    "Stairs",
+    "Fixtures",
+    "Ceiling Details",
+    "Floor Finishes",
+    "Electrical Outlets",
+    "Plumbing Fixtures",
+    "HVAC Equipment",
+    "Structural Elements"
+  ],
+  "detected_symbols": [],
+  "description": "This is a detailed architectural plan of the first floor of the U.S. Coast Guard 3rd District Governors Island Operations & Shops Building. It includes walls, doors, windows, stairs, fixtures, ceiling details, floor finishes, electrical outlets, plumbing fixtures, HVAC equipment, and structural elements.",
+  "preliminary_label": "architectural"
+}

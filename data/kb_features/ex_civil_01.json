@@ -1,0 +1,27 @@
+{
+  "has_title_block": true,
+  "title_block_text": "U.S. COAST GUARD 3RD DISTRICT GOV. ISL N.Y. CIVIL ENGINEERING ROADWAY REPAIRS ROSEBANK FAMILY HOUSING ROSEBANK CIVIL STATEN ISLAND SITE PLAN",
+  "sheet_title": "SITE PLAN",
+  "sheet_number": "03-5913",
+  "scale": "1:30",
+  "legend_items": [
+    "Limit of new 1/2\" min asphalt overlay w/membrane over entire area",
+    "Limit of new 2/8\" min. asphalt pavement",
+    "Place membrane over entire area within limits shown",
+    "Place membrane in strips over joints or cracks",
+    "Existing C.B. (catch basin)",
+    "Building number (typ)"
+  ],
+  "detected_symbols": [
+    "parking stripes",
+    "crack see details",
+    "joint details",
+    "sealant details",
+    "asphalt patches",
+    "membrane placement",
+    "elevation letters",
+    "building numbers"
+  ],
+  "description": "The drawing shows a site plan for a housing project, including parking areas, asphalt patches, and building locations. It includes details for crack sealing, joints, and membrane placement.",
+  "preliminary_label": "civil_site"
+}

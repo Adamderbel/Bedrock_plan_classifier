@@ -1,0 +1,15 @@
+{
+  "has_title_block": true,
+  "title_block_text": "U.S. COAST GUARD GOVERNORS ISLAND, N.Y. ENGINEERING REHABILITATE BUILDING 104",
+  "sheet_title": "FIRST FLOOR PLAN - ELECTRICAL POWER",
+  "sheet_number": "E-3",
+  "scale": "NO SCALE",
+  "legend_items": [],
+  "detected_symbols": [
+    "electrical outlets",
+    "switches",
+    "power distribution systems"
+  ],
+  "description": "This is an electrical power plan for the first floor of a building. It includes details of electrical outlets, switches, and power distribution systems.",
+  "preliminary_label": "electrical"
+}

@@ -1,0 +1,25 @@
+{
+  "has_title_block": true,
+  "title_block_text": "U.S. COAST GUARD CIVIL ENGINEERING UNIT NEW YORK, N.Y. RENOVATION OF BUILDING #107 STEEL FRAMING PLANS, FOUNDATION PLAN & DETAILS",
+  "sheet_title": "STEEL FRAMING PLANS, FOUNDATION PLAN & DETAILS",
+  "sheet_number": "A-3",
+  "scale": "1 1/2\"=1'-0\"",
+  "legend_items": [
+    "B.O. BOT. CHORD +14'-0\" + A.F.F. (F.M.)",
+    "METAL FLOOR GRATING T.O.S. +13'-6\" A.F.F.",
+    "REBUILD MASONRY SOLID AFTER STL. IS SET",
+    "EXISTING MASONRY BEARING WALL TO REMAIN"
+  ],
+  "detected_symbols": [
+    "beam pockets",
+    "columns",
+    "beams",
+    "anchor bolts",
+    "masonry",
+    "foundation walls",
+    "steel framing",
+    "notes"
+  ],
+  "description": "The drawing shows the steel framing plans and foundation details for the renovation of Building #107. It includes beam pockets, columns, beams, anchor bolts, masonry, foundation walls, and steel framing. The scale is 1 1/2\"=1'-0\" and the sheet number is A-3.",
+  "preliminary_label": "structural"
+}

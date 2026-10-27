@@ -1,0 +1,17 @@
+{
+  "has_title_block": true,
+  "title_block_text": "U.S. COAST GUARD SUPPORT CENTER NEW YORK, N.Y. CIVIL ENGINEERING DIVISION BUILDING RENOVATION SUPPORT CENTER NEW YORK GOVERNORS ISLAND NEW YORK BUILDING #330 SPRINKLER AUDITORIUM PLAN",
+  "sheet_title": "AUDITORIUM PLAN",
+  "sheet_number": "SP-1",
+  "scale": "as shown",
+  "legend_items": [],
+  "detected_symbols": [
+    "sprinkler heads",
+    "standpipes",
+    "electrical equipment",
+    "mechanical equipment",
+    "cooling tower"
+  ],
+  "description": "The drawing shows the auditorium plan with sprinkler and standpipe locations, electrical and mechanical equipment, and a cooling tower. The plan includes details of the sprinkler system and standpipe locations.",
+  "preliminary_label": "fire_safety"
+}

@@ -1,0 +1,34 @@
+{
+  "has_title_block": true,
+  "title_block_text": "U.S. COAST GUARD 107 GOVERNORS ISLAND, NEW YORK CIVIL ENGINEERING UNIT NEW YORK DESIGNED BY: ER DRAWN BY: JS REVIEWED BY: PROJECT ENGINEER SENIOR ENGINEER BRANCH CHIEF TECH. DIRECTOR MARIANO D. MOLINA, P.C. CONSULTING ENGINEERS 65 BLEECKEER STREET NEW YORK, NY 10012 (212) 677-0777 ELECTRICAL BOILER ROOM POWER PLAN, ONE-LINE DIAGRAM AND LEGEND APPROVED: DRAWING NUMBER PSN-1204 NY-0335 DATE 4/27/92 SCALE 1/4\"=1'-0\" SHEET 9 OF 11",
+  "sheet_title": "ELECTRICAL BOILER ROOM POWER PLAN, ONE-LINE DIAGRAM AND LEGEND",
+  "sheet_number": "NY-0335",
+  "scale": "1/4\"=1'-0\"",
+  "legend_items": [
+    "MOTOR NUMBER DESCRIBES HORSEPOWER",
+    "CONDUIT ITEM INDICATES UNIFIED 050 SR",
+    "EXPOSED CONDUIT AND WIRE STARTER",
+    "ADD NEW ITEM",
+    "REMOVE EXISTING ITEM",
+    "EXISTING ITEM TO REMAIN",
+    "REMOVE ITEM AND REPLACE WITH NEW ITEM",
+    "RELOCATE EXISTING ITEM",
+    "DISTRIBUTION PANEL",
+    "NOT TO SCALE",
+    "UNLESS OTHERWISE NOTED",
+    "MOTORIZED VALVE",
+    "MOTORIZED DAMPER",
+    "MOTOR STARTER SWITCH",
+    "PILOT LIGHT"
+  ],
+  "detected_symbols": [
+    "boilers",
+    "pumps",
+    "valves",
+    "motors",
+    "switches",
+    "circuits"
+  ],
+  "description": "This is an electrical diagram for the boiler room power plan. It includes a one-line diagram and legend for the electrical components and systems in the boiler room.",
+  "preliminary_label": "electrical"
+}

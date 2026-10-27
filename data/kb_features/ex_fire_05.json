@@ -1,0 +1,17 @@
+{
+  "has_title_block": false,
+  "title_block_text": "305 行行開開 NTS 3,500",
+  "sheet_title": "3F IN CASE OF EMERGENCY",
+  "sheet_number": null,
+  "scale": null,
+  "legend_items": [
+    "escape route",
+    "fire extinguisher",
+    "hydrant"
+  ],
+  "detected_symbols": [
+    "room numbers"
+  ],
+  "description": "This is an emergency evacuation plan for the 3rd floor of Century Hotel. It shows room numbers, escape routes, and locations of fire extinguishers and hydrants.",
+  "preliminary_label": "fire_safety"
+}

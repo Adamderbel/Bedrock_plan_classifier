@@ -1,0 +1,33 @@
+{
+  "has_title_block": true,
+  "title_block_text": "U.S. COAST GUARD NORFOLK, VA 23510 FACILITIES DESIGN & CONSTRUCTION CENTER CIVIL ENGINEERING USCG SUPPORT CENTER GOVERNORS ISLAND, NY RENOVATION OF CARPEHART APARTMENT BUILDING NO. 855 FIRST FLOOR PLAN SPRINKLER",
+  "sheet_title": "FIRST FLOOR PLAN SPRINKLER",
+  "sheet_number": "FP-2",
+  "scale": "1/8\" = 1'-0\"",
+  "legend_items": [
+    "FP: Fire Pipe",
+    "FSP: Fire Standpipe",
+    "FW: Fire Water",
+    "SC: Simmers Connection",
+    "UCR: Upright Sprinkler Head",
+    "CD: Connect to Existing",
+    "PD: Pipe Down",
+    "PU: Pipe Up",
+    "EXISTING: Existing",
+    "OS&LY: Outside Yoke Valve",
+    "FSR: Fire Standpipe Riser No.-1",
+    "FWR: Flow Switch (FL.SW)",
+    "TS: Tamper Switch",
+    "DR: Drain",
+    "CEIL: Ceiling"
+  ],
+  "detected_symbols": [
+    "fire water lines",
+    "sprinkler pipes",
+    "control valves",
+    "risers",
+    "fire hose racks"
+  ],
+  "description": "The drawing shows the first floor plan of a building with sprinkler system details. It includes fire water lines, sprinkler pipes, control valves, risers, and fire hose racks.",
+  "preliminary_label": "fire_safety"
+}

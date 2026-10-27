@@ -1,0 +1,16 @@
+{
+  "has_title_block": true,
+  "title_block_text": "BEATLY & BEATTY A.I.A. ARCHITECTS 32 COURT STREET BROOKLYN, NEW YORK VINCENT J. TURBANCO CONSULTING ENGINEER 44 COURT ST. BROOKLYN N.Y. SCALE: 1/8\"-1'-0\" MEDICAL / BARRACKS FACILITIES U.S. COAST GUARD - THIRD DISTRICT GOVERNORS ISLAND, NEW YORK DLUMBING PLAN",
+  "sheet_title": "DLUMBING PLAN",
+  "sheet_number": "02 OF 41",
+  "scale": "1/8\"-1'-0\"",
+  "legend_items": [],
+  "detected_symbols": [
+    "sanitary fixtures",
+    "water risers",
+    "storm risers",
+    "typical toilet"
+  ],
+  "description": "The drawing shows the plumbing layout for Building C, including sanitary fixtures, water risers, storm risers, and typical toilet locations. The scale is 1/8 inch equals 1 foot.",
+  "preliminary_label": "plumbing"
+}

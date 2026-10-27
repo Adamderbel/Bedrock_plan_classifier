@@ -1,0 +1,20 @@
+{
+  "has_title_block": true,
+  "title_block_text": "U.S. COAST GUARD NORFOLK, VA 23510 FACILITIES DESIGN & CONSTRUCTION CENTER CIVIL ENGINEERING USCG SUPPORT CENTER GOVERNORS ISLAND, NY RENOVATION OF CAPEHART APARTMENT BUILDING NUMBER 855 LARGE SCALE PLUMBING PLAN MECH. ROOM SHEET NUMBER P301 CHIEF OF DIVISION DATE DRAWING NUMBER 32NY-18-88 GILBERT MEYERS P.E. CONSULTING ENGINEERS SCALE: 1/4\"=1'-0\" SHEET X OF",
+  "sheet_title": "LARGE SCALE PLUMBING PLAN MECH. ROOM",
+  "sheet_number": "P301",
+  "scale": "1/4\"=1'-0\"",
+  "legend_items": [],
+  "detected_symbols": [
+    "storm manhole",
+    "sanitary manhole",
+    "new piping",
+    "existing boiler room",
+    "new sanitary manhole",
+    "new storm manhole",
+    "new storm piping",
+    "new sanitary piping"
+  ],
+  "description": "The drawing shows a large-scale plumbing plan for the mechanical room of the Capehart Apartment Building Number 855. It includes details of storm and sanitary manholes, new piping, and the existing boiler room.",
+  "preliminary_label": "plumbing"
+}

@@ -1,0 +1,28 @@
+{
+  "has_title_block": true,
+  "title_block_text": "U.S. COAST GUARD 3RD DISTRICT - GOVERNORS ISLAND, N.Y. CIVIL ENGINEERING US. COAST GUARD SUPPORT CENTER PUBLIC WORKS BUILDING GOVERNORS ISLAND NEW YORK POWER PLAN & LEGEND",
+  "sheet_title": "POWER PLAN & LEGEND",
+  "sheet_number": "E-2",
+  "scale": "1/8\"=1'-0\"",
+  "legend_items": [
+    "Emergency Battery",
+    "Lighting Unit",
+    "Remote Emergency Lighting",
+    "Ground Fault Interruptor",
+    "Weatherproof",
+    "Duct Mounted Smoke Detector",
+    "Duct Smoke Detector Test Switch",
+    "Electric Water Cooler",
+    "Heat Detector Fixed Temp Type"
+  ],
+  "detected_symbols": [
+    "electrical outlets",
+    "switches",
+    "lighting fixtures",
+    "circuit breakers",
+    "wiring diagrams",
+    "equipment locations"
+  ],
+  "description": "This is an electrical plan showing the layout of electrical outlets, switches, lighting fixtures, circuit breakers, and wiring diagrams for the U.S. Coast Guard Support Center on Governors Island. It includes equipment locations and a legend for symbols used.",
+  "preliminary_label": "electrical"
+}

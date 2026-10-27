@@ -1,0 +1,18 @@
+{
+  "has_title_block": false,
+  "title_block_text": "CLEVELAND, OHIO. Department of Public Parks. BEST SIDE PARK WAY. SECTION 5 PLAN NO. 130 DATE 1930 Ernest W. Bewditch. LANDSCAPE GARDENER.",
+  "sheet_title": "EAST SIDE PARK WAY",
+  "sheet_number": "5",
+  "scale": "& SCALE",
+  "legend_items": [],
+  "detected_symbols": [
+    "contour lines",
+    "paths",
+    "planting areas",
+    "water features",
+    "dimensions",
+    "notes"
+  ],
+  "description": "This is a site plan for a park area, showing contour lines, paths, planting areas, and water features. The plan includes dimensions and notes for specific elements within the park.",
+  "preliminary_label": "civil_site"
+}

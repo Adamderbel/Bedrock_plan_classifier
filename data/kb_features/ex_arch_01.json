@@ -1,0 +1,21 @@
+{
+  "has_title_block": true,
+  "title_block_text": "Kehrt Shatken Sharon: Architects 337 Witherspoon Street Princeton, New Jersey 08542 USA PSN 43-1206 NE-0324 SCALE AS SHOWN SHEET 3 OF 14",
+  "sheet_title": "BASEMENT FLOOR PLAN",
+  "sheet_number": "NE-0324",
+  "scale": "AS SHOWN",
+  "legend_items": [],
+  "detected_symbols": [
+    "room outlines",
+    "doors",
+    "windows",
+    "stairs",
+    "mechanical equipment",
+    "electrical outlets",
+    "plumbing fixtures",
+    "dimensions",
+    "notes"
+  ],
+  "description": "This is a basement floor plan showing room layouts, doors, windows, stairs, mechanical equipment, electrical outlets, plumbing fixtures, and dimensions. The plan includes notes and a title block with project information.",
+  "preliminary_label": "architectural"
+}

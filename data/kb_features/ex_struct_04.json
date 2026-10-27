@@ -1,0 +1,15 @@
+{
+  "has_title_block": true,
+  "title_block_text": "ROOF FRAMING PLAN SCALE 1/2\"=1'-0\" LOAD SCHEDULE DEAD LOAD ROOFING & INSULATION STEEL DECK BAR JOIST ACOUSTICAL HUNG CEILING 16 3/8 F.R. TOTAL DEAD LOAD 40 LIVE LOAD TOTAL LOAD 56#/5.F. ROOF FRAMING PLAN ADDITION & ALTERATIONS TO PS. 26 ELEMENTARY SCHOOL FORT JAY, GOVERNORS ISLAND, N.Y. HAFA NO. N.Y. GOE FED. 2 A-10 CONTRACT NO. H- (102) - 227 DRAWN BY SCALE JOB NO DATE SHEET NO. 53",
+  "sheet_title": "ROOF FRAMING PLAN",
+  "sheet_number": "53",
+  "scale": "1/2\"=1'-0\"",
+  "legend_items": [
+    "roof framing",
+    "load schedule",
+    "notes"
+  ],
+  "detected_symbols": [],
+  "description": "This is a structural drawing showing the roof framing plan for PS. 26 Elementary School in Fort Jay, Governors Island, N.Y. It includes details such as the load schedule, notes, and the framing plan itself.",
+  "preliminary_label": "structural"
+}

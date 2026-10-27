@@ -1,0 +1,22 @@
+{
+  "has_title_block": true,
+  "title_block_text": "LEGENDE Standort Feuerlöscher Rettungsweg / Notausgang Löschdecke Erste Hilfe Sammelstelle Musterbetrieb Musterstraße 12 12345 Musterstadt Erdgeschiöss BRANDSCHUTZ MANAGEMENT Hainweg 30 41189 Mönchengladbach www.osb-brandschutz.de Mail: info@osb-brandschutz.de Stand: 11.02.2015",
+  "sheet_title": "FLUCHT- UND RETTUNGSPLAN",
+  "sheet_number": null,
+  "scale": null,
+  "legend_items": [
+    "Standort",
+    "Feuerlöscher",
+    "Rettungsweg / Notausgang",
+    "Löschdecke",
+    "Erste Hilfe",
+    "Sammelstelle"
+  ],
+  "detected_symbols": [
+    "Richtungsangaben",
+    "Fluchtweg",
+    "Feuerwehr"
+  ],
+  "description": "This is a floor plan showing the escape and rescue routes in a building. It includes symbols for locations, fire extinguishers, first aid, assembly points, and directions.",
+  "preliminary_label": "fire_safety"
+}

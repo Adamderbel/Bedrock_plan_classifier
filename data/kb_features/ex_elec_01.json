@@ -1,0 +1,21 @@
+{
+  "has_title_block": true,
+  "title_block_text": "U.S. COAST GUARD GOVERNORS ISLAND N.Y. DESIGNED: 144 DRAWN: JW/06 TRACED: JW/06/BOR CHECKED: GL REVIEWED BY: TJC RESTORATION AND REDESIGN OF WEST HALF OF 4TH FLOOR OF CHIEF M/E PE BUILDING 125 REVIEWED BY: FLOOR PLAN - ELECTRICAL LIGHTING APPROVED: DATE CHIEF OF DIVISION DRAWING NUMBER DISTRICT FILE NO. FON 323172 GEORGE J. LEDERER PE, BC 345 CENTRAL AVE. SCARSDALE N.Y. 03-6274 SCALE: AS NOTED SHEET 13 of 15",
+  "sheet_title": "FLOOR PLAN - ELECTRICAL LIGHTING",
+  "sheet_number": "03-6274",
+  "scale": "AS NOTED",
+  "legend_items": [
+    "Warm White Lamp in Louver",
+    "With Dimmer Ballasts",
+    "Emergency Floodlight"
+  ],
+  "detected_symbols": [
+    "light fixtures",
+    "wiring paths",
+    "switches",
+    "outlets",
+    "luminaire schedules"
+  ],
+  "description": "This is an electrical lighting plan for the 4th floor of Building 125 at Governors Island, New York. It includes the layout of light fixtures, wiring paths, switches, and outlets. The plan is part of a restoration and redesign project for the U.S. Coast Guard.",
+  "preliminary_label": "electrical"
+}

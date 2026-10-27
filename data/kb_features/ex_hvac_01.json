@@ -1,0 +1,25 @@
+{
+  "has_title_block": true,
+  "title_block_text": "GENERAL REVISIONS MADE BY THE U.S. COAST GUARD ALSO, PREVIOUS EXISTING REVISION CLOUDS REMOVED FOR CLARIFICATION REV. DATE APPR. DESCRIPTION BY DESIGNED SH DRAWN JE EDITED SH CHECKED SH REVIEWED BY: U.S. COAST GUARD NEW YORK, N.Y. CIVIL ENGINEERING UNIT REVIEWED BY: RENOVATION OF BUILDING #107 PROJECT ENGINEER FIRST FLOOR HVAC PLAN REVIEWED BY: TEAM LEADER REVIEWED BY: APPROVED: DATE TECHNICAL DIRECTOR COMMANDING OFFICER, CEU DRAWING NUMBER NY-0363 M-1 SCALE: 1/8\"=1'-0\" SHEET 24 OF 30",
+  "sheet_title": "FIRST FLOOR HVAC PLAN",
+  "sheet_number": "M-1",
+  "scale": "1/8\"=1'-0\"",
+  "legend_items": [
+    "1-1/2\" chilled water supply and return piping typ. for 2",
+    "1-1/4\" condensate drain to service sink",
+    "TEF-1 (on roof above)"
+  ],
+  "detected_symbols": [
+    "chilled water pumps",
+    "chilled water supply and return piping",
+    "condensate drain",
+    "insulation",
+    "hot water supply and return piping",
+    "goosseneck",
+    "goosseneck up thru roof",
+    "goosseneck up thru roof for O.A. intake",
+    "offset O.A. in attic space"
+  ],
+  "description": "The drawing shows the HVAC plan for the first floor of Building #107, including chilled water pumps, supply and return piping, condensate drain, insulation, hot water supply and return piping, and various other HVAC components. The plan includes dimensions, notes, and a legend for symbols used.",
+  "preliminary_label": "hvac_mechanical"
+}

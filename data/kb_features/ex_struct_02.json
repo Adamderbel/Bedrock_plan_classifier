@@ -1,0 +1,20 @@
+{
+  "has_title_block": true,
+  "title_block_text": "REV. DATE APPR. DESCRIPTION BY DESIGNED: F.R.COBLING U.S. COAST GUARD 3RD DISTRICT GOVERNORS ISL, N.Y. DRAWN: DONLING CIVIL ENGINEERING TRACED: CHECKED: BUILDING 135 ALTERATIONS COAST GUARD SUPPORT CENTER N.Y. REVIEWED BY: GOVERNORS ISLAND, NEW YORK STRUCTURAL PLAN & DETAILS TECH ASST. REVIEWED BY: APPROVED: DATE CDR WSCGG CA. OF BRANCH DP 03-557 DRAWING NUMBER 03-5747 SCALE: 1/2\"=1'-0\" SCALE: AS SHOWN SHEET 13 OF 27",
+  "sheet_title": "ROOF FRAMING PLAN",
+  "sheet_number": "03-5747",
+  "scale": "1/2\"=1'-0\"",
+  "legend_items": [],
+  "detected_symbols": [
+    "2x6 PLATES",
+    "1/2\" PLYWOOD SHEATHING",
+    "2x8 RAFTERS",
+    "2x4 BATTERS",
+    "2x6 STUDS",
+    "1/2\" BOLTS (TYP)",
+    "1/2\" BOLTS & O.C.",
+    "2x8 PLATE"
+  ],
+  "description": "The drawing shows a roof framing plan for a building, detailing the layout of 2x6 plates, 1/2\" plywood sheathing, 2x8 rafters, 2x4 batters, 2x6 studs, and various bolts. It includes structural details and is part of a larger set of plans for Building 135 alterations at the Coast Guard Support Center in New York.",
+  "preliminary_label": "structural"
+}

@@ -1,0 +1,23 @@
+{
+  "has_title_block": true,
+  "title_block_text": "SITE & GRADING PLAN & DETAILS DRAWN BY: D.F. E.S.W. FORT JAY NCIO CLUB SUBMITTED: ARCHITECT-ENGINEER REVIEWED: FORT JAY RECOMMENDED: LOUIS P. TESTA CHIEF, ENGINEERING & PLANNING APPROVED: JOHN P. MARR SECRETARY DRAWING NUMBER: 833-2 DATE: JULY 1983 SHEET 2 OF 3",
+  "sheet_title": "SITE & GRADING PLAN & DETAILS",
+  "sheet_number": "833-2",
+  "scale": "AS SHOWN",
+  "legend_items": [
+    "EXISTING GRADE",
+    "EXISTING CONTOUR LINE",
+    "EXISTING DOOR"
+  ],
+  "detected_symbols": [
+    "contour lines",
+    "building outline",
+    "roads",
+    "parking areas",
+    "walkways",
+    "curbs",
+    "driveways"
+  ],
+  "description": "This is a site and grading plan for the Fort Jay NCO Club, showing contours, roads, parking, and other site details. The plan includes a legend for various symbols used.",
+  "preliminary_label": "civil_site"
+}
