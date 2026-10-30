@@ -1,22 +1,12 @@
 import pytest
 from pydantic import ValidationError
 
-from app.core.schemas import Classification, PageResult, PlanFeatures, RetrievedRef
+from app.core.schemas import PageResult, PlanFeatures, Usage
 
 
-def _cls(**overrides):
-    data = {"is_plan": True, "label": "electrical", "confidence": 0.9, "evidence": ["Sheet E-102"]}
-    return Classification(**(data | overrides))
-
-
-def test_valid_classification():
-    c = _cls()
-    assert c.label == "electrical"
-
-
-def test_not_a_plan_is_valid_when_is_plan_false():
-    c = _cls(is_plan=False, label="not_a_plan")
-    assert not c.is_plan
+def _features(**overrides):
+    data = {"has_title_block": True, "description": "Lighting plan.", "label": "electrical", "confidence": 0.9}
+    return PlanFeatures(**(data | overrides))
 
 
 @pytest.mark.parametrize(
@@ -24,52 +14,31 @@ def test_not_a_plan_is_valid_when_is_plan_false():
     [
         {"confidence": 1.2},
         {"confidence": -0.1},
+        {"confidence": None},
         {"label": "landscape"},
-        {"evidence": []},
-        {"is_plan": True, "label": "not_a_plan"},
-        {"is_plan": False, "label": "plumbing"},
     ],
 )
-def test_invalid_classification(overrides):
+def test_invalid_features(overrides):
     with pytest.raises(ValidationError):
-        _cls(**overrides)
+        _features(**overrides)
 
 
-def test_embedding_text_has_key_features_but_not_label_or_project():
-    f = PlanFeatures(
-        has_title_block=True,
-        title_block_text="ACME TOWER - SMITH & PARTNERS ARCHITECTS - LIGHTING LAYOUT LEVEL 1",
-        sheet_title="LIGHTING LAYOUT LEVEL 1",
-        sheet_number="E-102",
-        scale="1:100",
-        legend_items=["downlight", "switch"],
-        detected_symbols=["circuit tags"],
-        description="Floor plan with lighting fixtures.",
-        preliminary_label="electrical",
-    )
-    text = f.to_embedding_text()
-    assert "E-102" in text
-    assert "LIGHTING LAYOUT LEVEL 1" in text
-    assert "downlight, switch" in text
-    assert "electrical" not in text
-    assert "ACME" not in text
+def test_model_must_answer_label_and_confidence():
+    required = PlanFeatures.model_json_schema()["required"]
+    assert {"label", "confidence", "has_title_block", "description"} <= set(required)
 
 
-def test_embedding_text_flags_missing_title_block():
-    f = PlanFeatures(has_title_block=False, description="Photo of a building site.", preliminary_label="not_a_plan")
-    assert "No title block." in f.to_embedding_text()
+def test_is_plan_follows_the_label():
+    assert _features().is_plan and not _features(label="not_a_plan").is_plan
 
 
 def test_features_clean_placeholders_and_junk():
-    f = PlanFeatures(
-        has_title_block=True,
+    f = _features(
         title_block_text="&nbsp;",
         sheet_number="&quot;E-102&quot;",
         scale=" N/A ",
         legend_items=["2x4", "4", "2x4', 2, '2', '2x4'", "Downlight", "downlight", "", "Exit sign"],
         detected_symbols=["exit sign"] + [f"symbol {i}" for i in range(30)],
-        description="Lighting plan.",
-        preliminary_label="electrical",
     )
     assert f.title_block_text == ""
     assert f.sheet_number == "E-102"
@@ -80,24 +49,32 @@ def test_features_clean_placeholders_and_junk():
 
 
 def test_not_a_plan_drops_hallucinated_sheet_and_scale():
-    f = PlanFeatures(
-        has_title_block=False,
-        sheet_number="189",
-        scale="1/8\" = 1'-0\" (implied)",
-        description="Invoice.",
-        preliminary_label="not_a_plan",
-    )
+    f = _features(has_title_block=False, sheet_number="189", scale="1/8\" = 1'-0\" (implied)",
+                  description="Invoice.", label="not_a_plan")
     assert f.sheet_number is None and f.scale is None
 
 
-def test_page_result_serializes_like_spec():
-    r = PageResult(
-        file="lot3.pdf",
-        page=1,
-        retrieved=[
-            RetrievedRef(type="rule", id="electrical"),
-            RetrievedRef(type="example", file="ex_elec_04.png"),
-        ],
+def test_evidence_from_what_was_read():
+    f = _features(
+        sheet_title="LIGHTING LAYOUT LEVEL 1",
+        sheet_number="E-102",
+        legend_items=["downlight", "switch", "exit sign", "panel", "outlet"],
+        detected_symbols=["circuit tags"],
     )
+    assert f.evidence() == [
+        "sheet title: LIGHTING LAYOUT LEVEL 1",
+        "sheet number: E-102",
+        "legend: downlight, switch, exit sign, panel",  # at most 4 entries quoted
+        "drawn: circuit tags",
+    ]
+
+
+def test_evidence_without_title_falls_back_to_the_description():
+    f = _features(has_title_block=False, description="Photo of a building site.", label="not_a_plan")
+    assert f.evidence() == ["no title block", "Photo of a building site."]
+
+
+def test_page_result_leaves_out_empty_fields():
+    r = PageResult(file="lot3.pdf", page=1, label="electrical", confidence=0.9, usage=Usage(input_tokens=10))
     out = r.model_dump(exclude_none=True)
-    assert out["retrieved"] == [{"type": "rule", "id": "electrical"}, {"type": "example", "file": "ex_elec_04.png"}]
+    assert "error" not in out and out["usage"]["input_tokens"] == 10

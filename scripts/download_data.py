@@ -1,4 +1,4 @@
-"""Build data/kb and data/test from data/manifest.csv.
+"""Build data/test from data/manifest.csv.
 
 Usage:
     python -m scripts.download_data            # download + render everything missing
@@ -6,7 +6,7 @@ Usage:
 
 Manifest columns:
     id      file stem, e.g. ex_elec_04
-    split   kb | test
+    split   test (the knowledge-base rows of the RAG version are in old/data/manifest.csv)
     label   one of the 8 labels
     url     http(s) URL, or local:<path relative to repo> for files you add by hand
     page    1-based page to extract from a PDF (blank for images)
@@ -14,7 +14,6 @@ Manifest columns:
     license license or terms of the source
 
 Output:
-    kb   -> data/kb/<label>/<id>.png          (page rendered at 150 DPI)
     test -> data/test/<label>/<id>.pdf|.png|.jpg  (PDF pages kept as single-page PDFs)
     data/test_multipage/bundle.pdf + bundle.json  (several test files merged into one
             PDF, with the expected label per page, to check one-result-per-page)
@@ -49,9 +48,8 @@ MULTIPAGE_DIR = DATA / "test_multipage"
 BUNDLE_PAGES = ["test_elec_01", "test_plumb_01", "test_hvac_02", "test_civil_03", "test_nap_02"]
 
 USER_AGENT = "PlanSense-dataset/0.1 (technical exercise; contact: repo owner)"
-TARGET_PER_LABEL = {"kb": 5, "test": 3}
+TARGET_PER_LABEL = {"test": 3}
 RENDER_DPI = 150
-MAX_SIDE = 5000  # keep huge sheets manageable on disk; pipeline downsizes further
 
 Image.MAX_IMAGE_PIXELS = 200_000_000  # large drawing sheets are legit
 
@@ -70,16 +68,6 @@ def fetch(url: str) -> bytes:
     cached.write_bytes(data)
     time.sleep(1)  # be polite to public servers
     return data
-
-
-def render_pdf_page(data: bytes, page: int, dpi: int = RENDER_DPI) -> Image.Image:
-    pdf = pdfium.PdfDocument(data)
-    try:
-        img = pdf[page - 1].render(scale=dpi / 72).to_pil()
-    finally:
-        pdf.close()
-    img.thumbnail((MAX_SIDE, MAX_SIDE), Image.Resampling.LANCZOS)
-    return img.convert("RGB")
 
 
 def extract_pdf_page(data: bytes, page: int) -> bytes:
@@ -111,16 +99,12 @@ def build_row(row: dict[str, str], force: bool) -> Path:
     kind = detect_kind(data)
     page = int(row["page"]) if row.get("page") else 1
 
-    if split == "test" and kind == "pdf":
+    if kind == "pdf":
         out = out_dir / f"{stem}.pdf"
         out.write_bytes(extract_pdf_page(data, page))
-    elif split == "test":
+    else:
         out = out_dir / f"{stem}.{'jpg' if kind == 'jpeg' else 'png'}"
         out.write_bytes(data)
-    else:
-        img = render_pdf_page(data, page) if kind == "pdf" else Image.open(io.BytesIO(data)).convert("RGB")
-        out = out_dir / f"{stem}.png"
-        img.save(out, format="PNG", optimize=True)
     return out
 
 

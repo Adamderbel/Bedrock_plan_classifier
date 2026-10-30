@@ -22,6 +22,7 @@ LABELS: tuple[str, ...] = get_args(Label)
 # Values models emit instead of null; treated as "absent".
 PLACEHOLDERS = {"", "&", "&nbsp;", "-", "--", "n/a", "na", "none", "null", "unknown", "unreadable", "not visible"}
 MAX_LIST_ITEMS = 15
+MAX_EVIDENCE_ITEMS = 4  # legend entries / drawn elements quoted per evidence line
 
 
 def _clean_text(value: str | None) -> str | None:
@@ -34,6 +35,18 @@ def _clean_text(value: str | None) -> str | None:
     return None if value.lower() in PLACEHOLDERS else value
 
 
+def _clean_list(value) -> list[str]:
+    """Drop placeholders, duplicates and fragments without words (e.g. '2x4', '4')."""
+    items, seen = [], set()
+    for raw in value or []:
+        item = _clean_text(raw)
+        if not item or not _is_wordy(item) or item.lower() in seen:
+            continue
+        seen.add(item.lower())
+        items.append(item)
+    return items[:MAX_LIST_ITEMS]
+
+
 def _is_wordy(item: str) -> bool:
     """True for real entries; false for fragments like '2x4', '4' or digit soup."""
     letters = sum(ch.isalpha() for ch in item)
@@ -42,7 +55,7 @@ def _is_wordy(item: str) -> bool:
 
 
 class PlanFeatures(BaseModel):
-    """What the extractor model reads from a page image (step 2)."""
+    """What the model reads from a page image, and its classification of the page."""
 
     has_title_block: bool = Field(description="True if the page has a drawing title block / cartouche.")
     title_block_text: str = Field(
@@ -71,9 +84,8 @@ class PlanFeatures(BaseModel):
     description: str = Field(
         description="2-4 factual sentences naming the drawing type and the systems drawn; no class names."
     )
-    preliminary_label: Label = Field(
-        description="Best-guess class, from the sheet title, sheet prefix and the system drawn."
-    )
+    label: Label = Field(description="The class, from the sheet title, sheet prefix and the system drawn.")
+    confidence: float = Field(ge=0, le=1, description="Probability that the label is correct, 0-1.")
 
     @field_validator("sheet_title", "sheet_number", "scale", mode="before")
     @classmethod
@@ -88,93 +100,50 @@ class PlanFeatures(BaseModel):
     @field_validator("legend_items", "detected_symbols", mode="before")
     @classmethod
     def _text_list(cls, value):
-        """Drop placeholders, duplicates and fragments without words (e.g. '2x4', '4')."""
-        items, seen = [], set()
-        for raw in value or []:
-            item = _clean_text(raw)
-            if not item or not _is_wordy(item) or item.lower() in seen:
-                continue
-            seen.add(item.lower())
-            items.append(item)
-        return items[:MAX_LIST_ITEMS]
+        return _clean_list(value)
 
     @model_validator(mode="after")
     def _consistency(self) -> PlanFeatures:
-        # Symbols copied from the legend would count twice in the embedding text.
+        # Symbols copied from the legend would be listed twice in the evidence.
         legend = {item.lower() for item in self.legend_items}
         self.detected_symbols = [s for s in self.detected_symbols if s.lower() not in legend]
         # A non-plan has no sheet number or scale; values there are hallucinated.
-        if self.preliminary_label == "not_a_plan" and not self.has_title_block:
+        if self.label == "not_a_plan" and not self.has_title_block:
             self.sheet_title = None
             self.sheet_number = None
             self.scale = None
         return self
 
-    def to_embedding_text(self) -> str:
-        """Text that gets embedded for retrieval.
+    @property
+    def is_plan(self) -> bool:
+        return self.label != "not_a_plan"
 
-        Used identically for KB examples and for new pages so their vectors are
-        comparable. Left out on purpose:
-        - the preliminary label, otherwise the search would match label words
-          instead of visual content;
-        - the full title-block text: its project / client / firm boilerplate is
-          shared by every sheet of a project, so pages would match by building
-          instead of by discipline. Only the sheet title is kept.
-        """
-        parts = [f"Description: {self.description}"]
+    @property
+    def title_visible(self) -> bool:
+        return self.has_title_block or bool(self.sheet_title)
+
+    def evidence(self) -> list[str]:
+        """Short facts the label rests on, taken from what the model read on the page."""
+        items = []
         if self.sheet_title:
-            parts.append(f"Sheet title: {self.sheet_title}")
+            items.append(f"sheet title: {self.sheet_title}")
         if self.sheet_number:
-            parts.append(f"Sheet number: {self.sheet_number}")
-        if self.scale:
-            parts.append(f"Scale: {self.scale}")
+            items.append(f"sheet number: {self.sheet_number}")
         if self.legend_items:
-            parts.append("Legend: " + ", ".join(self.legend_items))
+            items.append("legend: " + ", ".join(self.legend_items[:MAX_EVIDENCE_ITEMS]))
         if self.detected_symbols:
-            parts.append("Symbols: " + ", ".join(self.detected_symbols))
+            items.append("drawn: " + ", ".join(self.detected_symbols[:MAX_EVIDENCE_ITEMS]))
         if not self.has_title_block:
-            parts.append("No title block.")
-        return "\n".join(parts)
-
-
-class Classification(BaseModel):
-    """Final decision for one page (step 4)."""
-
-    is_plan: bool = Field(description="False only when label is not_a_plan.")
-    label: Label
-    confidence: float = Field(ge=0, le=1, description="Probability that the label is correct, 0-1.")
-    evidence: list[str] = Field(
-        min_length=1,
-        description="2-5 short facts visible on the page that support the label, e.g. "
-        "'title block: FIRST FLOOR PLUMBING PLAN', 'sheet number P-1', 'legend lists CW/HW lines'.",
-    )
-
-    @model_validator(mode="after")
-    def _plan_flag_matches_label(self) -> Classification:
-        if self.is_plan != (self.label != "not_a_plan"):
-            raise ValueError("is_plan must be false exactly when label is 'not_a_plan'")
-        return self
-
-
-class RetrievedRef(BaseModel):
-    """One retrieved KB document, as reported in the output."""
-
-    type: Literal["rule", "example"]
-    id: str | None = None  # rule: the discipline label
-    file: str | None = None  # example: file name
-    label: Label | None = None  # example: its label
-    source: str | None = None  # example: where it came from
-    score: float | None = None
-
-
-class ModelIds(BaseModel):
-    extract: str
-    decide: str  # model ID, or "fast_path"
+            items.append("no title block")
+        if len(items) < 2:
+            items.append(self.description)
+        return items
 
 
 class Usage(BaseModel):
     input_tokens: int = 0
     output_tokens: int = 0
+    calls: int = 0  # model calls made; > 1 means retries or the JSON fallback were needed
 
 
 class PageResult(BaseModel):
@@ -186,12 +155,8 @@ class PageResult(BaseModel):
     label: Label | None = None
     confidence: float | None = None
     evidence: list[str] = Field(default_factory=list)
-    retrieved: list[RetrievedRef] = Field(default_factory=list)
-    model_ids: ModelIds | None = None
+    model_id: str | None = None
     latency_ms: int = 0
-
-    route: Literal["decider", "fast_path", "extractor"] | None = None  # extractor: evaluation baseline only
-    use_rag: bool | None = None
     needs_review: bool = False
-    usage: dict[str, Usage] = Field(default_factory=dict)  # keyed by step: "extract", "decide"
+    usage: Usage | None = None
     error: str | None = None

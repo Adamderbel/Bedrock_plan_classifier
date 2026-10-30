@@ -1,0 +1,12 @@
+{
+  "reference": "qwen3-vl",
+  "price_note": "USD per 1M tokens, on-demand, Asia Pacific (Mumbai).",
+  "models": {
+    "qwen3-vl": {"id": "qwen.qwen3-vl-235b-a22b", "name": "Qwen3 VL 235B", "price_in": 0.62, "price_out": 3.13},
+    "nova-pro": {"id": "apac.amazon.nova-pro-v1:0", "name": "Nova Pro", "price_in": 0.94, "price_out": 3.76},
+    "nova-lite": {"id": "apac.amazon.nova-lite-v1:0", "name": "Nova Lite", "price_in": 0.071, "price_out": 0.284},
+    "mistral-large-3": {"id": "mistral.mistral-large-3-675b-instruct", "name": "Mistral Large 3", "price_in": 0.59, "price_out": 1.76},
+    "kimi-k2.5": {"id": "moonshotai.kimi-k2.5", "name": "Kimi K2.5", "price_in": 0.72, "price_out": 3.60},
+    "nemotron-vl": {"id": "nvidia.nemotron-nano-12b-v2", "name": "Nemotron Nano 2 VL", "price_in": 0.24, "price_out": 0.71}
+  }
+}

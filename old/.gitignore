@@ -1,0 +1,33 @@
+# Secrets
+.env
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Generated artifacts
+kb_index/
+data/raw/
+logs/
+review_queue.jsonl
+
+# Evaluation outputs (rebuilt by scripts/eval/run_eval.py and report.py)
+scripts/eval/results/*
+!scripts/eval/results/.gitkeep
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Dataset files are rebuilt from data/manifest.csv by scripts/download_data.py
+data/kb/*/*
+!data/kb/*/.gitkeep
+data/test/*/*
+!data/test/*/.gitkeep
+data/local/*
+!data/local/.gitkeep
+data/test_multipage/

@@ -1,4 +1,5 @@
 import io
+import os
 
 import pytest
 from PIL import Image
@@ -88,3 +89,25 @@ def test_encode_falls_back_to_jpeg_when_too_big():
     data, media_type = encode_image(Image.new("RGB", (100, 100), "white"), max_bytes=10)
     assert media_type == "image/jpeg"
     assert data.startswith(b"\xff\xd8\xff")
+
+
+def _noise(size: int) -> Image.Image:
+    return Image.frombytes("RGB", (size, size), os.urandom(size * size * 3))
+
+
+def test_encode_keeps_small_images_as_png():
+    data, media_type = encode_image(Image.new("RGB", (1568, 1100), "white"))
+    assert media_type == "image/png" and len(data) <= 1_000_000
+
+
+def test_encode_fits_large_images_in_the_budget():
+    # Random noise barely compresses: PNG ~3 MB, so it needs lower JPEG quality or shrinking.
+    data, media_type = encode_image(_noise(1000), max_bytes=300_000)
+    assert media_type == "image/jpeg" and len(data) <= 300_000
+
+
+def test_render_respects_the_byte_budget():
+    buf = io.BytesIO()
+    _noise(1200).save(buf, format="PNG")
+    (page,) = render_pages(buf.getvalue(), max_image_bytes=400_000)
+    assert len(page.image) <= 400_000 and len(page.title_block) <= 400_000

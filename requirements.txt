@@ -1,8 +1,6 @@
-# LLM / RAG
+# LLM
 langchain-core>=0.3
 langchain-aws>=0.2
-langchain-community>=0.3
-faiss-cpu>=1.8
 boto3>=1.39          # 1.39+ needed for Bedrock API keys (AWS_BEARER_TOKEN_BEDROCK)
 
 # Data models / config

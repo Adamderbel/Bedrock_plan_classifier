@@ -1,0 +1,40 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowBedrockApiKeyAuth",
+      "Effect": "Allow",
+      "Action": "bedrock:CallWithBearerToken",
+      "Resource": "*"
+    },
+    {
+      "Sid": "InvokeClaudeInferenceProfiles",
+      "Effect": "Allow",
+      "Action": ["bedrock:InvokeModel", "bedrock:InvokeModelWithResponseStream"],
+      "Resource": [
+        "arn:aws:bedrock:eu-north-1:<ACCOUNT_ID>:inference-profile/eu.anthropic.claude-sonnet-4-5-20250929-v1:0",
+        "arn:aws:bedrock:eu-north-1:<ACCOUNT_ID>:inference-profile/eu.anthropic.claude-opus-4-6-v1"
+      ]
+    },
+    {
+      "Sid": "InvokeClaudeModelsOnlyViaProfile",
+      "Effect": "Allow",
+      "Action": ["bedrock:InvokeModel", "bedrock:InvokeModelWithResponseStream"],
+      "Resource": [
+        "arn:aws:bedrock:eu-*::foundation-model/anthropic.claude-sonnet-4-5-20250929-v1:0",
+        "arn:aws:bedrock:eu-*::foundation-model/anthropic.claude-opus-4-6-v1"
+      ],
+      "Condition": {
+        "StringLike": {
+          "bedrock:InferenceProfileArn": "arn:aws:bedrock:eu-north-1:<ACCOUNT_ID>:inference-profile/eu.anthropic.claude-*"
+        }
+      }
+    },
+    {
+      "Sid": "TitanTextEmbeddings",
+      "Effect": "Allow",
+      "Action": "bedrock:InvokeModel",
+      "Resource": "arn:aws:bedrock:eu-north-1::foundation-model/amazon.titan-embed-text-v2:0"
+    }
+  ]
+}

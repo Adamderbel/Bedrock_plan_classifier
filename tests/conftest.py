@@ -4,9 +4,8 @@ import os
 import pytest
 from PIL import Image
 
-# Tests never call AWS, but settings require model IDs; set dummies when .env is absent.
-os.environ.setdefault("SONNET_MODEL_ID", "test-extract-model")
-os.environ.setdefault("OPUS_MODEL_ID", "test-decide-model")
+# Tests never call AWS, but settings require a model ID; set a dummy when .env is absent.
+os.environ.setdefault("MODEL_ID", "test-model")
 
 
 def _image_bytes(img: Image.Image, fmt: str) -> bytes:

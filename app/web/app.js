@@ -34,9 +34,9 @@ async function loadHealth() {
     const res = await fetch("/health");
     const h = await res.json();
     prices = h.prices_usd_per_1m_tokens;
-    status.textContent = `${h.models.extract.split(".").slice(-1)[0]} · ${h.index_loaded ? "KB loaded" : "KB missing"}`;
-    status.className = `status ${h.index_loaded ? "ok" : "bad"}`;
-    status.title = `extract: ${h.models.extract}\ndecide: ${h.models.decide}\nembed: ${h.models.embed}`;
+    status.textContent = h.model_id.split(".").slice(-1)[0];
+    status.className = "status ok";
+    status.title = `${h.model_id} @ ${h.region}`;
   } catch {
     status.textContent = "API unreachable";
     status.className = "status bad";
@@ -73,8 +73,6 @@ drop.addEventListener("drop", (e) => choose(e.dataTransfer.files[0]));
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   if (!selected) return;
-  // The UI always uses the recommended setup from the evaluation: RAG on, fast path off.
-  const params = new URLSearchParams({ use_rag: true, fast_path: false });
   const body = new FormData();
   body.append("file", selected);
 
@@ -85,12 +83,12 @@ form.addEventListener("submit", async (e) => {
   const started = performance.now();
   const timer = setInterval(() => {
     const s = Math.round((performance.now() - started) / 1000);
-    $("progressText").textContent = `Classifying… ${s} s (about 20 s per page)`;
+    $("progressText").textContent = `Classifying… ${s} s (about 10 s per page)`;
   }, 500);
   $("progress").hidden = false;
 
   try {
-    const res = await fetch(`/classify?${params}`, { method: "POST", body });
+    const res = await fetch("/classify", { method: "POST", body });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
       const retry = res.headers.get("Retry-After");
@@ -112,12 +110,7 @@ form.addEventListener("submit", async (e) => {
 
 function pageCost(usage) {
   if (!prices || !usage) return null;
-  let usd = 0;
-  for (const [step, u] of Object.entries(usage)) {
-    const p = prices[step];
-    if (p) usd += (u.input_tokens * p.input + u.output_tokens * p.output) / 1e6;
-  }
-  return usd;
+  return (usage.input_tokens * prices.input + usage.output_tokens * prices.output) / 1e6;
 }
 
 function renderSummary(pages, seconds) {
@@ -138,17 +131,11 @@ function renderSummary(pages, seconds) {
   $("summary").hidden = false;
 }
 
-function sourceLink(source) {
-  const m = /https?:\/\/\S+/.exec(source || "");
-  return m ? m[0] : null;
-}
-
 function renderPage(p) {
   const color = labelColor(p.label);
   const head = el("div", { class: "card-head" },
     el("span", { class: "page" }, `Page ${p.page}`),
     el("span", { class: "badge" }, pretty(p.label)),
-    p.route && el("span", { class: "flag route", title: "how the answer was produced" }, p.route.replace("_", " ")),
     p.needs_review && el("span", { class: "flag review" }, "needs review"),
   );
 
@@ -165,31 +152,10 @@ function renderPage(p) {
     ));
   }
 
-  const rules = (p.retrieved || []).filter((r) => r.type === "rule");
-  const examples = (p.retrieved || []).filter((r) => r.type === "example");
-  if (rules.length) {
-    parts.push(el("div", {}, el("h3", {}, "Retrieved rules"), el("div", { class: "chips" },
-      rules.map((r) => el("span", { class: "chip", style: `--chip:${labelColor(r.id)}` },
-        el("b", {}, pretty(r.id)), ` ${r.score?.toFixed(2) ?? ""}`)),
-    )));
-  }
-  if (examples.length) {
-    parts.push(el("div", {}, el("h3", {}, "Similar reference pages"), el("div", { class: "chips" },
-      examples.map((r) => {
-        const href = sourceLink(r.source);
-        const attrs = { class: "chip", style: `--chip:${labelColor(r.label)}`, title: r.file };
-        const tag = href ? "a" : "span";
-        if (href) Object.assign(attrs, { href, target: "_blank", rel: "noopener" });
-        return el(tag, attrs, el("b", {}, pretty(r.label)), ` ${r.score?.toFixed(2) ?? ""}`);
-      }),
-    )));
-  }
-
-  const tokens = Object.entries(p.usage || {})
-    .map(([step, u]) => `${step} ${u.input_tokens}/${u.output_tokens}`).join(" · ");
+  const tokens = p.usage ? `${p.usage.input_tokens}/${p.usage.output_tokens}` : "";
   const cost = pageCost(p.usage);
   parts.push(el("dl", { class: "meta" },
-    el("dt", {}, "Models"), el("dd", {}, `${p.model_ids?.extract ?? "-"} → ${p.model_ids?.decide ?? "-"}`),
+    el("dt", {}, "Model"), el("dd", {}, p.model_id ?? "-"),
     el("dt", {}, "Latency"), el("dd", {}, `${(p.latency_ms / 1000).toFixed(1)} s`),
     el("dt", {}, "Tokens in/out"), el("dd", {}, tokens || "-"),
     el("dt", {}, "Est. cost"), el("dd", {}, cost == null ? "-" : `$${cost.toFixed(5)}`),

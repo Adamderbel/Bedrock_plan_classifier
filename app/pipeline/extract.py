@@ -1,4 +1,4 @@
-"""Step 2 - visual extraction: the extractor model reads the page and returns PlanFeatures."""
+"""The model reads the page and classifies it in one call, returning PlanFeatures."""
 
 from __future__ import annotations
 
@@ -7,8 +7,7 @@ from app.core.schemas import PlanFeatures, Usage
 from app.pipeline.llm import image_block, invoke_structured
 from app.pipeline.render import PageImage
 
-# Short, fixed label definitions so preliminary_label uses our classes.
-# The detailed rules and confusion cases come from retrieval, for the decision step.
+# Short, fixed label definitions so the label uses our classes.
 LABEL_GUIDE = """\
 - architectural: floor plans, elevations, sections whose subject is the building itself (walls, doors/windows, room names, finishes); prefix A-
 - structural: grid lines, columns, beams, foundations, framing, rebar details, load notes; prefix S- or F- (foundation)
@@ -19,7 +18,9 @@ LABEL_GUIDE = """\
 - fire_safety: sprinklers, fire alarm devices, evacuation routes and signs, extinguishers, fire compartments; prefix FP-, SP-, FA-
 - not_a_plan: photos, invoices, letters, forms, map/app screenshots, sketches without scale or title block"""
 
-SYSTEM_PROMPT = f"""You are an expert in reading construction drawings.
+
+def system_prompt(cap: float) -> str:
+    return f"""You are an expert in reading construction drawings.
 You receive a document page as two images: the full page, then a zoomed crop of its
 bottom-right corner where a title block usually is (the crop may contain no title block).
 
@@ -46,7 +47,7 @@ Extract only what is actually visible:
   "architectural plan"; describe what is shown. Leave out project, building, client and
   firm names (they are already in title_block_text).
 
-Then give a preliminary_label from these classes:
+Then give the label, from these classes:
 {LABEL_GUIDE}
 
 How to choose the class:
@@ -55,7 +56,12 @@ How to choose the class:
 - Decide from, in this order: the sheet title (e.g. "PLUMBING PLAN", "SPRINKLER PLAN",
   "FOUNDATION PLAN"), the sheet number prefix, then the system that is the subject of the drawing.
 - Use architectural only when the building itself is the subject and no other system is.
-- If the page is not a technical drawing at all, use not_a_plan."""
+- If the page is not a technical drawing at all, use not_a_plan.
+
+confidence: how likely the label is correct, 0-1. About 0.9 or more when the sheet title
+and the drawn content agree; 0.6-0.8 when the label rests on the drawn content alone; below
+0.6 when the signals conflict or the page is unreadable. When no title block or sheet title
+is visible, at most {cap:.2f} for a plan."""
 
 
 def page_images(page: PageImage) -> list[dict]:
@@ -68,13 +74,22 @@ def page_images(page: PageImage) -> list[dict]:
     ]
 
 
-def extract_features(page: PageImage) -> tuple[PlanFeatures, Usage]:
-    """Return the page features and the token usage of the call(s)."""
-    return invoke_structured(
-        get_settings().sonnet_model_id,
+def extract_features(page: PageImage, model_id: str | None = None) -> tuple[PlanFeatures, Usage]:
+    """Return the page features (with label and confidence) and the token usage of the call(s).
+
+    model_id defaults to MODEL_ID in the settings. The confidence cap for plans without a
+    visible title is applied here too, so it holds even if the model ignores that instruction.
+    """
+    s = get_settings()
+    cap = s.no_title_confidence_cap
+    features, usage = invoke_structured(
+        model_id or s.model_id,
         PlanFeatures,
-        SYSTEM_PROMPT,
+        system_prompt(cap),
         page_images(page),
-        "Extract the page features.",
+        "Extract the page features and classify the page.",
         max_tokens=2048,
     )
+    if features.is_plan and not features.title_visible and features.confidence > cap:
+        features.confidence = cap
+    return features, usage

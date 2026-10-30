@@ -7,7 +7,7 @@ from fastapi.testclient import TestClient
 
 from app import app as api
 from app.core.config import get_settings
-from app.core.schemas import ModelIds, PageResult
+from app.core.schemas import PageResult
 
 
 def _page(n=1, **kw):
@@ -18,8 +18,7 @@ def _page(n=1, **kw):
         "label": "electrical",
         "confidence": 0.9,
         "evidence": ["sheet E-1"],
-        "model_ids": ModelIds(extract="m1", decide="m2"),
-        "route": "decider",
+        "model_id": "m1",
     }
     return PageResult(**(data | kw))
 
@@ -28,12 +27,11 @@ def _page(n=1, **kw):
 def client(monkeypatch):
     calls = {}
 
-    def fake_classify(data, filename, *, use_rag=None, fast_path=None):
-        calls.update(filename=filename, use_rag=use_rag, fast_path=fast_path)
+    def fake_classify(data, filename):
+        calls.update(filename=filename)
         return calls.get("results", [_page()])
 
     monkeypatch.setattr(api, "classify_file", fake_classify)
-    monkeypatch.setattr(api, "get_index", lambda: None)
     with TestClient(api.app) as c:
         c.calls = calls
         yield c
@@ -41,8 +39,8 @@ def client(monkeypatch):
 
 def test_health(client):
     body = client.get("/health").json()
-    assert body["status"] == "ok"
-    assert set(body["models"]) == {"extract", "decide", "embed"}
+    assert body["status"] == "ok" and body["model_id"] == "test-model"
+    assert set(body["prices_usd_per_1m_tokens"]) == {"input", "output"}
 
 
 def test_classify_image(client, make_image):
@@ -53,14 +51,9 @@ def test_classify_image(client, make_image):
     assert "error" not in page  # None fields are left out, like the spec
 
 
-def test_query_overrides_are_passed(client, make_image):
-    client.post("/classify?use_rag=false&fast_path=true", files={"file": ("p.png", make_image(), "image/png")})
-    assert client.calls["use_rag"] is False and client.calls["fast_path"] is True
-
-
-def test_default_options_come_from_settings(client, make_image):
-    client.post("/classify", files={"file": ("p.png", make_image(), "image/png")})
-    assert client.calls["use_rag"] is None and client.calls["fast_path"] is None
+def test_filename_is_stripped_of_paths(client, make_image):
+    client.post("/classify", files={"file": ("../../etc/plan.png", make_image(), "image/png")})
+    assert client.calls["filename"] == "plan.png"
 
 
 def test_unsupported_type_is_415(client):
@@ -80,9 +73,8 @@ def test_too_large_is_413(client, monkeypatch, make_image):
     assert res.status_code == 413
 
 
-def test_corrupt_pdf_is_422(monkeypatch):
+def test_corrupt_pdf_is_422():
     # Real classify_file: rendering fails before any model call.
-    monkeypatch.setattr(api, "get_index", lambda: None)
     with TestClient(api.app) as c:
         res = c.post("/classify", files={"file": ("bad.pdf", b"%PDF-1.4 garbage", "application/pdf")})
     assert res.status_code == 422
@@ -93,8 +85,7 @@ def test_corrupt_pdf_is_422(monkeypatch):
     [
         ("ClientError: An error occurred (ThrottlingException) when calling Converse", 503),
         ("ReadTimeoutError: Read timed out", 504),
-        ("IndexMissingError: No FAISS index", 503),
-        ("StructuredOutputError: Classification not returned", 502),
+        ("StructuredOutputError: PlanFeatures not returned", 502),
     ],
 )
 def test_all_pages_failed_maps_to_status(client, make_image, error, status):

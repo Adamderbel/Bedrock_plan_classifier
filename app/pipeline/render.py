@@ -15,8 +15,11 @@ PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
 JPEG_MAGIC = b"\xff\xd8\xff"
 PDF_MAGIC = b"%PDF-"
 
-# Bedrock rejects images above 3.75 MB.
-MAX_IMAGE_BYTES = 3_750_000
+# Bytes per image. Bedrock accepts up to 3.75 MB per image, but some models
+# (Mistral, Kimi, Qwen, Nemotron) reject whole requests above ~2.5 MB, and every
+# call sends two images (full page + title-block crop).
+MAX_IMAGE_BYTES = 1_000_000
+JPEG_QUALITIES = (85, 75, 65, 55)
 
 # Title blocks sit in the bottom-right corner on most sheets.
 TITLE_BLOCK_BOX = (0.6, 0.6, 1.0, 1.0)  # left, top, right, bottom as fractions
@@ -61,10 +64,17 @@ def detect_kind(data: bytes) -> FileKind:
 
 
 def render_pages(
-    data: bytes, *, dpi: int = 150, max_pages: int = 20, max_side: int = 1568, hide_title_block: bool = False
+    data: bytes,
+    *,
+    dpi: int = 150,
+    max_pages: int = 20,
+    max_side: int = 1568,
+    hide_title_block: bool = False,
+    max_image_bytes: int = MAX_IMAGE_BYTES,
 ) -> list[PageImage]:
     """Render a PDF / PNG / JPEG into pages.
 
+    Each image is at most max_image_bytes (see encode_image).
     hide_title_block paints the title-block corner white (evaluation only: it
     simulates pages whose title block gives no answer).
     """
@@ -72,7 +82,7 @@ def render_pages(
     images = _pdf_to_images(data, dpi, max_pages) if kind == "pdf" else [_open_image(data)]
     if hide_title_block:
         images = [_blank_title_block(img) for img in images]
-    return [_to_page_image(i + 1, img, max_side) for i, img in enumerate(images)]
+    return [_to_page_image(i + 1, img, max_side, max_image_bytes) for i, img in enumerate(images)]
 
 
 def _blank_title_block(img: Image.Image) -> Image.Image:
@@ -97,14 +107,28 @@ def downscale(img: Image.Image, max_side: int) -> Image.Image:
 
 
 def encode_image(img: Image.Image, max_bytes: int = MAX_IMAGE_BYTES) -> tuple[bytes, str]:
-    """PNG keeps line drawings crisp; fall back to JPEG for large photo-like pages."""
+    """PNG keeps line drawings crisp, so it is used when it fits in max_bytes.
+
+    Otherwise JPEG, lowering the quality step by step and, as a last resort,
+    shrinking the image until it fits.
+    """
+    data = _save(img, "PNG", optimize=True)
+    if len(data) <= max_bytes:
+        return data, "image/png"
+    while True:
+        for quality in JPEG_QUALITIES:
+            data = _save(img, "JPEG", quality=quality)
+            if len(data) <= max_bytes:
+                return data, "image/jpeg"
+        if max(img.size) <= 256:
+            return data, "image/jpeg"
+        img = downscale(img, int(max(img.size) * 0.75))
+
+
+def _save(img: Image.Image, fmt: str, **options) -> bytes:
     buf = io.BytesIO()
-    img.save(buf, format="PNG", optimize=True)
-    if buf.tell() <= max_bytes:
-        return buf.getvalue(), "image/png"
-    buf = io.BytesIO()
-    img.save(buf, format="JPEG", quality=85)
-    return buf.getvalue(), "image/jpeg"
+    img.save(buf, format=fmt, **options)
+    return buf.getvalue()
 
 
 def _pdf_to_images(data: bytes, dpi: int, max_pages: int) -> list[Image.Image]:
@@ -133,11 +157,11 @@ def _open_image(data: bytes) -> Image.Image:
     return ImageOps.exif_transpose(img)
 
 
-def _to_page_image(page: int, img: Image.Image, max_side: int) -> PageImage:
+def _to_page_image(page: int, img: Image.Image, max_side: int, max_bytes: int = MAX_IMAGE_BYTES) -> PageImage:
     img = img.convert("RGB")
     # Crop from the full-resolution render so small title-block text stays legible.
     crop = downscale(crop_title_block(img), max_side)
     full = downscale(img, max_side)
-    image, media_type = encode_image(full)
-    title_block, tb_media_type = encode_image(crop)
+    image, media_type = encode_image(full, max_bytes)
+    title_block, tb_media_type = encode_image(crop, max_bytes)
     return PageImage(page, image, media_type, title_block, tb_media_type, full.size)

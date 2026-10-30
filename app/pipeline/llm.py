@@ -1,4 +1,4 @@
-"""Bedrock clients: extractor and decider chat models, Titan embeddings."""
+"""Bedrock chat client and structured output with retries."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from typing import TypeVar
 
 from botocore.config import Config
 from botocore.exceptions import ClientError
-from langchain_aws import BedrockEmbeddings, ChatBedrockConverse
+from langchain_aws import ChatBedrockConverse
 from langchain_core.messages import HumanMessage, SystemMessage
 from pydantic import BaseModel, ValidationError
 
@@ -49,18 +49,6 @@ def message_text(message) -> str:
     if isinstance(content, str):
         return content
     return "".join(b.get("text", "") for b in content if isinstance(b, dict))
-
-
-@lru_cache
-def get_embeddings() -> BedrockEmbeddings:
-    s = get_settings()
-    # Normalised vectors make FAISS's L2 ranking equivalent to cosine similarity.
-    return BedrockEmbeddings(
-        model_id=s.embed_model_id,
-        region_name=s.embed_region,
-        normalize=True,
-        config=BOTO_CONFIG,
-    )
 
 
 def image_block(data: bytes, media_type: str) -> dict:
@@ -126,6 +114,7 @@ def invoke_structured(
     errors: list[str] = []
     messages = [SystemMessage(system), HumanMessage(content=content + [{"type": "text", "text": instruction}])]
     for _ in range(attempts):
+        usage.calls += 1
         try:
             out = _structured(model_id, schema, max_tokens).invoke(messages)
         except ClientError as err:
@@ -144,6 +133,7 @@ def invoke_structured(
         + json.dumps(schema.model_json_schema())
     )
     messages = [SystemMessage(system), HumanMessage(content=content + [{"type": "text", "text": fallback}])]
+    usage.calls += 1
     raw = _chat(model_id, max_tokens).invoke(messages)
     add_usage(raw)
     try:
